@@ -1,0 +1,13 @@
+<div class="container">
+  <% @restaurants.each do |rest| %>
+  <br>
+    <article>
+      <h2><%= link_to rest.name, "restaurants/#{rest.id}" %></h2><br>
+
+    </article>
+  <% end %>
+
+  <br>
+
+  <%= link_to 'Create a new restaurant!', 'restaurants/new' %>
+</div>

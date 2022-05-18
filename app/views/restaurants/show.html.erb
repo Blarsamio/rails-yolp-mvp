@@ -1,0 +1,53 @@
+<div class="container">
+    <h1>
+      <%= @restaurant.name %>
+
+      <small>
+        <%= link_to "#{@restaurant.id}/edit", :method => :get, :title => "Update #{@restaurant.name}" do %>
+          <i class="fas fa-pencil-alt"></i>
+        <% end %>
+      </small>
+      <small>
+        <%= link_to @restaurant, :method => :delete, :title => "Delete #{@restaurant.name}", data: { :confirm => "You sure?", disable_with: "Processing ..." } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </small>
+    </h1>
+    <hr>
+    <p> Address :
+      <%= @restaurant.address %><br><br>
+    </p>
+    <p> Phone number:
+      <%= @restaurant.phone_number %><br><br>
+    </p>
+    <p> Category:
+      <%= @restaurant.category %><br><br>
+    </p>
+    <h2>Reviews</h2>
+    <div class="list-group">
+        <% @restaurant.reviews.each do |review| %>
+          <li class="list-group-item">
+            <small>
+              <% count = 0 %>
+              <% 5.times do %>
+                <% if review.rating > count %>
+                  <i class="fas fa-star"></i>
+                <% else %>
+                  <i class="far fa-star"></i>
+                <% end %>
+                <% count += 1 %>
+              <% end %>
+            </small>
+            <p><%= review.content %></p>
+          </li>
+        <% end %>
+      </div>
+
+    <%= simple_form_for [@restaurant, @reviews] do |f| %>
+        <%= f.input :rating, collection: 0..5 %>
+        <%= f.input :content%>
+        <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+      <br>
+      <%= link_to "See all restaurants", restaurants_path %>
+</div>
